@@ -1,16 +1,18 @@
 ---
+import ThemeToggle from "./ThemeToggle";
 ---
-<nav class="bg-white shadow-sm border-b">
+<nav class="bg-bg shadow-sm border-b border-border transition-colors">
   <div class="container mx-auto px-4">
     <div class="flex justify-between items-center h-16">
-      <a href="/" class="text-xl font-bold text-gray-900">HiveX</a>
-      <div class="flex space-x-8">
-        <a href="/" class="text-gray-600 hover:text-gray-900" id="nav-projects">
+      <a href="/" class="text-xl font-bold text-text">HiveX</a>
+      <div class="flex items-center space-x-8">
+        <a href="/" class="text-text-secondary hover:text-text transition-colors" id="nav-projects">
           Projects
         </a>
-        <a href="/leaderboard" class="text-gray-600 hover:text-gray-900" id="nav-leaderboard">
+        <a href="/leaderboard" class="text-text-secondary hover:text-text transition-colors" id="nav-leaderboard">
           Leaderboard
         </a>
+        <ThemeToggle client:load />
       </div>
     </div>
   </div>
