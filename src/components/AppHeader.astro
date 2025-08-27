@@ -14,6 +14,14 @@ const links = [
         label: "Reviews",
     },
     {
+        to: "/projects",
+        label: "Projects",
+    },
+    {
+        to: "/leaderboard",
+        label: "Leaderboard",
+    },
+    {
         to: "https://github.com/luasenvy/nextjs-astro-theme",
         label: "NextJS Version",
     },
@@ -26,11 +34,8 @@ const links = [
             <div class="relative flex flex-wrap items-center justify-between gap-6 py-3 md:gap-0 md:py-4">
                 <div class="relative z-20 flex w-full justify-between md:px-0 lg:w-fit">
                     <a href="/#home" aria-label="logo" class="flex items-center space-x-2">
-                        <div aria-hidden="true" class="flex space-x-1">
-                            <div class="size-4 rounded-full bg-gray-900 dark:bg-white"></div>
-                            <div class="h-6 w-2 bg-primary"></div>
-                        </div>
-                        <span class="text-2xl font-bold text-gray-900 dark:text-white">Astrolus</span>
+                        <span class="text-2xl">🐝</span>
+                        <span class="text-2xl font-bold text-gray-900 dark:text-white">HiveX</span>
                     </a>
 
                     <div class="relative flex max-h-10 items-center lg:hidden">
@@ -53,12 +58,28 @@ const links = [
                             }
                             <a href="https://tailtips.dev" target="_blank" class="flex gap-2 font-semibold text-gray-700 transition hover:text-primary dark:text-white dark:hover:text-white md:px-4">
                                 <span>TailwindCSS Tips</span>
-                                <span class="flex rounded-full border bg-primary/20 px-2 py-0.5 text-xs tracking-wider text-purple-700 dark:bg-white/10 dark:text-orange-300">New</span>
+                                <span class="flex rounded-full border bg-primary/20 px-2 py-0.5 text-xs tracking-wider text-purple-700 dark:bg-white/10 dark:bg-orange-300">New</span>
                             </a>
                         </div>
                     </div>
 
-                    <div class="mt-12 lg:mt-0">
+                    <div class="mt-12 lg:mt-0 flex items-center gap-4">
+                        <!-- Theme Toggle Button -->
+                        <button 
+                            id="theme-toggle" 
+                            aria-label="Toggle theme" 
+                            class="relative p-2 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                            <!-- Sun icon for light mode -->
+                            <svg id="sun-icon" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                            </svg>
+                            <!-- Moon icon for dark mode -->
+                            <svg id="moon-icon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                            </svg>
+                        </button>
+
                         <a href="/register" class="relative flex h-9 w-full items-center justify-center px-4 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
                             <span class="relative text-sm font-semibold text-white"> Get Started</span>
                         </a>

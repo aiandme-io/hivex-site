@@ -4,6 +4,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        'urbanist': ['Urbanist', 'sans-serif'],
+      },
       colors: {
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',

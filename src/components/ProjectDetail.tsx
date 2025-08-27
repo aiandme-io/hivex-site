@@ -8,24 +8,48 @@ export default function ProjectDetail({ slug }: { slug: string }) {
   const [project, setProject] = useState<Project | null>(null);
   const [err, setErr] = useState<string>("");
   const [loading, setLoading] = useState(true);
+  const [debugInfo, setDebugInfo] = useState<string>("");
 
   useEffect(() => {
+    console.log("ProjectDetail: Looking for project with slug:", slug);
+    
     getProjectsIndex()
       .then((index) => {
+        console.log("ProjectDetail: Fetched projects index:", index);
+        console.log("ProjectDetail: Available project slugs:", index.projects.map(p => p.slug));
+        
         const found = index.projects.find(p => p.slug === slug);
         if (found) {
+          console.log("ProjectDetail: Found project:", found);
           setProject(found);
         } else {
-          setErr("Project not found");
+          console.log("ProjectDetail: Project not found. Available slugs:", index.projects.map(p => p.slug));
+          setErr(`Project "${slug}" not found. Available projects: ${index.projects.map(p => p.slug).join(", ")}`);
+          setDebugInfo(`Available projects: ${index.projects.map(p => p.slug).join(", ")}`);
         }
       })
-      .catch(e => setErr(e.message))
+      .catch(e => {
+        console.error("ProjectDetail: Error fetching projects:", e);
+        setErr(`Failed to fetch projects: ${e.message}`);
+      })
       .finally(() => setLoading(false));
   }, [slug]);
 
-  if (loading) return <div>Loading project details...</div>;
-  if (err) return <div className="text-red-600">Error: {err}</div>;
-  if (!project) return <div>Project not found</div>;
+  if (loading) return <div className="text-center py-8 text-gray-600 dark:text-gray-400">Loading project details...</div>;
+  
+  if (err) return (
+    <div className="space-y-4">
+      <div className="text-red-600 text-center py-8">Error: {err}</div>
+      {debugInfo && (
+        <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
+          <h3 className="font-semibold mb-2">Debug Information:</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{debugInfo}</p>
+        </div>
+      )}
+    </div>
+  );
+  
+  if (!project) return <div className="text-center py-8 text-gray-600 dark:text-gray-400">Project not found</div>;
 
   return (
     <div className="space-y-8">

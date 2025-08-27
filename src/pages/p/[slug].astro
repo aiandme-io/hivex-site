@@ -1,0 +1,55 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProjectDetail from "../../components/ProjectDetail";
+
+export async function getStaticPaths() {
+  try {
+    // Fetch all projects to generate static routes
+    const BASE = import.meta.env.PUBLIC_DATA_BASE_URL;
+    if (!BASE) {
+      console.warn("PUBLIC_DATA_BASE_URL not set, returning empty paths");
+      return [];
+    }
+    
+    const res = await fetch(`${BASE}/index.json`);
+    if (!res.ok) {
+      console.warn("Failed to fetch projects for static paths, returning empty paths");
+      return [];
+    }
+    
+    const data = await res.json();
+    const projects = data.projects || [];
+    
+    // Generate a path for each project
+    return projects.map((project: any) => ({
+      params: { slug: project.slug },
+      props: { project }
+    }));
+  } catch (error) {
+    console.warn("Error generating static paths:", error);
+    return [];
+  }
+}
+
+const { slug } = Astro.params;
+---
+
+<Layout title={`HiveX Project - ${slug}`}>
+    <main class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="mb-8">
+                <a href="/projects" class="inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                    Back to Projects
+                </a>
+            </div>
+            
+            <!-- Project Detail Content -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                <ProjectDetail client:load slug={slug} />
+            </div>
+        </div>
+    </main>
+</Layout>

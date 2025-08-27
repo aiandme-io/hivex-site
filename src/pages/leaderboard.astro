@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import LeaderboardTable from "../components/Leaderboard";
+---
+
+<Layout title="HiveX Leaderboard - AI Security Testing Platform">
+    <main class="pt-32 pb-16">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                    HiveX Leaderboard
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                    Discover the top contributors and security researchers in the AI security testing community
+                </p>
+            </div>
+            
+            <!-- Leaderboard Content -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
+                <LeaderboardTable client:load />
+            </div>
+        </div>
+    </main>
+</Layout>

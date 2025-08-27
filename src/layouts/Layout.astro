@@ -1,22 +1,64 @@
 ---
-import "../tailus.css";
-export interface Props {
-  title: string;
-}
-
-const { title } = Astro.props;
+import AppFooter from "../components/AppFooter.astro";
+import AppHeader from "../components/AppHeader.astro";
+import "./../tailus.css"
 ---
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="HiveX - AI Security Testing Platform" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-  </head>
-  <body class="bg-bg-secondary text-text transition-colors">
-    <slot />
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content="Astro" />
+        <meta name="description" content="HiveX - AI Security Testing Platform" />
+        <title>HiveX - AI Security Testing Platform</title>
+
+        <!-- Google Fonts - Urbanist -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        
+        <style>
+            html {
+                font-family: 'Urbanist', sans-serif;
+            }
+        </style>
+    </head>
+    <body class="bg-white dark:bg-gray-950 font-urbanist">
+        <AppHeader />
+        <slot />
+        <AppFooter />
+        
+        <!-- Theme Toggle Script - Available on all pages -->
+        <script>
+            // Theme toggle functionality
+            function initializeThemeToggle() {
+                const themeToggle = document.querySelector("#theme-toggle") as HTMLButtonElement;
+                if (!themeToggle) return;
+                
+                // Check for saved theme preference or default to 'light'
+                const currentTheme = localStorage.getItem("theme") || "light";
+                document.documentElement.classList.toggle("dark", currentTheme === "dark");
+                
+                themeToggle.addEventListener("click", () => {
+                    const isDark = document.documentElement.classList.contains("dark");
+                    const newTheme = isDark ? "light" : "dark";
+                    
+                    // Toggle the dark class
+                    document.documentElement.classList.toggle("dark");
+                    
+                    // Save the preference
+                    localStorage.setItem("theme", newTheme);
+                });
+            }
+            
+            // Initialize theme toggle when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initializeThemeToggle);
+            } else {
+                initializeThemeToggle();
+            }
+        </script>
+    </body>
 </html>
